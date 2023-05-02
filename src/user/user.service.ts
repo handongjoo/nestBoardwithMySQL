@@ -14,7 +14,7 @@ export class UserService {
           where: {email, deletedAt: null}
         })
 
-        if(!checkUser.email) {
+        if(!checkUser) {
           throw new HttpException({
             status: HttpStatus.BAD_REQUEST,
             message: '존재하지 않는 이메일 입니다.'
