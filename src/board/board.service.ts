@@ -8,4 +8,23 @@ export class BoardService {
     constructor(
         @InjectRepository(Article) private articleRepository: Repository<Article>
       ) {}
+
+      async getArticles() {
+        try {
+          const articles = await this.articleRepository.find({
+            where: {deletedAt:null},
+            select: ["author", "title", "content", "createdAt"]
+          })
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
+      async createArticle(title:string, content:string) {
+        try {
+          return await this.articleRepository.insert({title,content})
+        } catch (error) {
+          console.log(error)
+        }
+      }
 }
